@@ -26,6 +26,18 @@
 
 		<button type='submit' id='updateButton'>ADD BOOK TO LIST</button>
 
+		<ul class="books">
+			<% for(let i=0; i < info.length; i++) {%>
+				<li class="book">
+					<span><%= info[i].name %></span>
+					<span><%= info[i].author %></span>
+					<span><img src=<%= info[i].thumbnail %>></span>
+					<span class='fa fa-thumbs-up'></span>
+					<span class='fa fa-trash'></span>
+				</li>
+			<% } %>
+			</ul>
+
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>

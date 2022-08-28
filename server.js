@@ -22,12 +22,12 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors())
 
-app.get('/', async(request, response) => {
-    try{
-        response.render('index.ejs')
-    }catch(error){
-        response.status(500).send({message: error.message})
-    }
+app.get('/',(request, response)=>{
+    db.collection('Cluster0').find().toArray()
+    .then(data => {
+        response.render('index.ejs', { info: data })
+    })
+    .catch(error => console.error(error))
 })
 
 app.put('/booklist', (req, res) => {
