@@ -20,7 +20,7 @@ const addBook =  _ => {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            name: document.querySelector('h3').innerText,
+            name: document.querySelector('h2').innerText,
             author: document.querySelector('h4').innerText,
             thumbnail: document.querySelector('img').src,
             
@@ -35,16 +35,17 @@ const addBook =  _ => {
 }
 
 function getBook(){
-    let title = document.querySelector('input').value
+    let title = document.getElementById('titleInput').value
+    let author = document.getElementById('authorInput').value
 
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}+inauthor:${author}`)
         .then(res => res.json())
         .then(data => {
            // console.log(data.items)
-            for(i=0; i<data.items.length; i++){
-                console.log(data.items[i].volumeInfo.title)
+            //for(i=0; i<data.items.length; i++){
+                //console.log(data.items[i].volumeInfo.title)
                 
-                const newElement = document.createElement('li')
+                /* const newElement = document.createElement('li')
                 newElement.className = "bookResult"
                 document.querySelector(".bookUl").appendChild(newElement)
 
@@ -62,17 +63,21 @@ function getBook(){
 
                 const button = document.createElement('button')
                 document.querySelector(".bookResult").appendChild(button)
-                button.addEventListener('click', addBook)
+                button.addEventListener('click', addBook) */
 
                 
-            // document.querySelector('h2').innerText = data.items[0].volumeInfo.title
-            /* document.querySelector('img').src = data.items[0].volumeInfo.imageLinks.thumbnail
+            document.querySelector('h2').innerText = data.items[0].volumeInfo.title
+            document.querySelector('img').src = data.items[0].volumeInfo.imageLinks.thumbnail
             document.querySelector('h4').innerText = data.items[0].volumeInfo.authors
-            document.querySelector('h3').innerText = data.items[0].volumeInfo.description */
+            document.querySelector('h3').innerText = data.items[0].volumeInfo.description
+            
+            const button = document.createElement('button')
+                document.querySelector(".bookResult").appendChild(button)
+                button.addEventListener('click', addBook)
         }
             
     
-        })
+        )
         .catch(err => {
             console.log(`error ${err}`)
         });
